@@ -1,0 +1,23 @@
+.service-banner { background:#292012; color:#f5ca81; padding:9px 16px; font:500 13px/1.5 system-ui; text-align:center; }
+.app-nav { display:flex; flex-wrap:wrap; gap:8px; padding:12px 24px; max-width:1180px; margin:auto; }
+.app-nav a, .app-nav button { background:#171717; color:#e9c07e; padding:8px 12px; border:1px solid #54402a; border-radius:8px; font:inherit; cursor:pointer; }
+.app-message { margin:16px auto; padding:14px 18px; max-width:1000px; border:1px solid #bd8c46; background:#302414; color:#ffdc9f; border-radius:10px; overflow-wrap:anywhere; }
+.app-message.error { display:block; background:#361919; border-color:#ad6060; color:#ffcece; }
+button:disabled { opacity:.55; cursor:not-allowed; }
+button:focus-visible,a:focus-visible,select:focus-visible { outline:2px solid #f5a623; outline-offset:3px; }
+select { background:#111; color:#eee; padding:12px; border:1px solid #65502b; border-radius:9px; max-width:100%; margin:8px 0; }
+#levels button { width:100%; color:inherit; text-align:left; background:#171717; font:inherit; cursor:pointer; }
+#levels button.active { border-color:#f5a623; background:#322719; }
+#pendingOrders p { border-top:1px solid #444; padding:10px 0; }
+#notaTabela { margin:12px 0; }
+[hidden] { display:none !important; }
+.scroll, .table-scroll { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; }
+th,td { padding:12px 8px; text-align:left; border-bottom:1px solid #333; overflow-wrap:anywhere; }
+#refLink { min-width:0; }
+#saveOrder { margin:12px 0; width:100%; }
+@media(max-width:860px) { .header-inner { flex-wrap:wrap; } .app-nav { padding:12px; } .wrap { padding-left:16px; padding-right:16px; } .card { min-width:0; } .grid { grid-template-columns:1fr !important; } }
+.table-scroll table { min-width:500px; }
+th { white-space:nowrap; }
+.grid > * { min-width:0; }
+.table-scroll { max-width:100%; }

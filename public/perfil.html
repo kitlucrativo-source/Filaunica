@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil | Fila Única</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="service-banner">Cadastros disponíveis · Pagamentos ainda não habilitados</div>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-icon">◆</div>Fila Única</a>
+      <a href="dashboard.html" class="btn btn-outline">Voltar</a>
+    </div>
+  </header>
+  <div class="wrap">
+    <h1>Perfil e dados bancários</h1>
+    <div class="alert" id="alert"></div>
+    <div class="okmsg" id="ok"></div>
+    <div class="grid">
+      <div class="card">
+        <h2 style="color:var(--gold);margin-bottom:14px;">Dados pessoais</h2>
+        <form method="post" action="#" id="perfilForm">
+          <div class="field"><label>Login</label><input id="login" readonly></div>
+          <div class="field"><label>Nome completo</label><input id="nome" required></div>
+          <div class="field"><label>E-mail</label><input id="email" type="email" required></div>
+          <div class="field"><label>Celular</label><input id="telefone"></div>
+          <div class="field"><label>CPF/CNPJ</label><input id="documento"></div>
+          <div class="field"><label for="senhaPerfil">Senha atual (para alterar e-mail)</label><input id="senhaPerfil" type="password" autocomplete="current-password"></div>
+<button class="btn btn-primary" style="width:100%;" type="submit">Salvar perfil</button>
+        </form>
+      </div>
+      <div class="card">
+        <h2 style="color:var(--gold);margin-bottom:14px;">PIX para saque</h2>
+        <form method="post" action="#" id="pixForm">
+          <div class="field">
+            <label>Tipo de chave</label>
+            <select id="pixTipo">
+              <option value="cpf">CPF</option>
+              <option value="email">E-mail</option>
+              <option value="celular">Celular</option>
+              <option value="aleatoria">Aleatória</option>
+            </select>
+          </div>
+          <div class="field"><label>Chave PIX</label><input id="pixChave" required></div>
+          <div class="field"><label>Titular</label><input id="titular"></div>
+          <div class="field"><label for="senhaPix">Senha atual</label><input id="senhaPix" type="password" required autocomplete="current-password"></div>
+<button class="btn btn-primary" style="width:100%;" type="submit">Salvar PIX</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>

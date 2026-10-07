@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saque | Fila Única</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="service-banner">Cadastros disponíveis · Pagamentos ainda não habilitados</div>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-icon">◆</div>Fila Única</a>
+      <a href="dashboard.html" class="btn btn-primary">Dashboard</a>
+    </div>
+  </header>
+  <div class="wrap" style="max-width:640px;">
+    <h1>Solicitar saque</h1>
+    <div class="kpis">
+      <div class="kpi"><span>Disponível</span><strong id="available">R$ 0,00</strong></div>
+      <div class="kpi"><span>Mínimo</span><strong>R$ 30,00</strong></div>
+    </div>
+    <div class="card">
+      <div class="alert" id="alert"></div>
+      <div class="okmsg" id="ok"></div>
+      <p class="muted">Saques indisponíveis enquanto não houver integração de pagamentos e saldo confirmado.</p><form method="post" action="#" id="form">
+        <div class="field"><label>Valor</label><input id="valor" type="number" min="30" step="0.01" required></div>
+        <div class="field"><label>PIX (chave)</label><input id="pix" required></div>
+        <button class="btn btn-primary" style="width:100%;" type="submit" disabled>Saques indisponíveis</button>
+      </form>
+    </div>
+  </div>
+  
+</body>
+</html>

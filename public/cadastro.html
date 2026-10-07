@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro | Fila Única</title>
+  <style>
+    :root {
+      --gold: #f5a623;
+      --gold-dark: #d4891a;
+      --black: #0a0a0a;
+      --dark: #111111;
+      --gray: #1a1a1a;
+      --text: #f0f0f0;
+      --muted: #a0a0a0;
+      --danger: #ff6b6b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--black);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245, 166, 35, 0.15);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--gold), #ffd700);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), #ffc107);
+      color: #111;
+      width: 100%;
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(245, 166, 35, 0.35); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .page-title h1 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+
+    .page-title p { color: var(--muted); }
+
+    .sponsor-card {
+      background: var(--gray);
+      border: 1px solid rgba(245, 166, 35, 0.25);
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .sponsor-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), #ffd700);
+      color: #111;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .sponsor-card small { color: var(--muted); display: block; font-size: 0.8rem; }
+    .sponsor-card strong { color: var(--gold); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--gray);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 18px;
+      padding: 28px;
+    }
+
+    .card h2 {
+      font-size: 1.15rem;
+      margin-bottom: 20px;
+      color: var(--gold);
+    }
+
+    .field { margin-bottom: 16px; }
+
+    .field label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      background: #0d0d0d;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .field input:focus, .field select:focus {
+      border-color: var(--gold);
+    }
+
+    .hint { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+    .error { color: var(--danger); font-size: 0.8rem; margin-top: 4px; display: none; }
+    .field.has-error input, .field.has-error select { border-color: var(--danger); }
+    .field.has-error .error { display: block; }
+
+    .field.has-ok input { border-color: var(--gold); }
+
+    .rules {
+      list-style: none;
+      margin-top: 8px;
+      display: grid;
+      gap: 4px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .rules li::before { content: '○ '; }
+    .rules li.ok { color: var(--gold); }
+    .rules li.ok::before { content: '● '; }
+
+    .levels {
+      display: grid;
+      gap: 10px;
+    }
+
+    .level {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: #0d0d0d;
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .level:hover { border-color: rgba(245, 166, 35, 0.4); }
+    .level.active {
+      border-color: var(--gold);
+      background: rgba(245, 166, 35, 0.08);
+    }
+
+    .level-left { display: flex; flex-direction: column; }
+    .level-name { font-weight: 700; }
+    .level-sub { font-size: 0.78rem; color: var(--muted); }
+    .level-price { font-weight: 800; color: var(--gold); font-size: 1.05rem; }
+
+    .summary {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .summary strong { color: var(--text); }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .success.show { display: block; }
+    .form-wrap.hide { display: none; }
+
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), #ffd700);
+      color: #111;
+      font-size: 2rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 28px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer a { color: var(--gold); }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="service-banner">Cadastros disponíveis · Pagamentos ainda não habilitados</div>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">◆</div>
+        Fila Única
+      </a>
+      <div style="display:flex; gap:10px;">
+        <a href="dashboard.html" class="btn btn-outline">Dashboard</a>
+        <a href="login.html" class="btn btn-outline">Já tenho conta</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="page-title">
+      <h1>Crie sua conta</h1>
+      <p>Escolha um nível e crie sua conta. A participação ficará pendente até a disponibilidade e confirmação do pagamento.</p>
+    </div>
+
+    <div class="sponsor-card" id="sponsorCard">
+      <div class="sponsor-avatar" id="sponsorInitial">F</div>
+      <div>
+        <small>Você está sendo indicado por</small>
+        <strong id="sponsorName">Fila Única</strong>
+        <small id="sponsorLogin">sem patrocinador direto</small>
+      </div>
+    </div>
+
+    <div class="form-wrap" id="formWrap">
+      <div class="grid">
+        <div class="card">
+          <h2>Seus dados</h2>
+          <form method="post" action="#" id="signupForm">
+            <div class="field" data-field="login">
+              <label for="login">Crie o login</label>
+              <input pattern="[a-zA-Z0-9_]{3,32}" maxlength="32" id="login" name="login" type="text" autocomplete="username" placeholder="seuusuario" required>
+              <div class="hint">Sem espaços, acentos ou caracteres especiais</div>
+              <div class="error">Informe um login válido (mín. 3 caracteres, só letras, números e _).</div>
+            </div>
+
+            <div class="field" data-field="email">
+              <label for="email">E-mail</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="voce@email.com" required>
+              <ul class="rules" id="emailRules">
+                <li data-rule="at">Contém @</li>
+                <li data-rule="domain">Domínio válido (ex: gmail.com)</li>
+                <li data-rule="format">Formato completo sem espaços</li>
+              </ul>
+              <div class="error" id="emailError">Informe um e-mail válido.</div>
+            </div>
+
+            <div class="field" data-field="nome">
+              <label for="nome">Nome completo</label>
+              <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Seu nome" required>
+              <div class="error">Informe seu nome completo.</div>
+            </div>
+
+            <div class="field" data-field="pais">
+              <label for="pais">País</label>
+              <select id="pais" name="pais" required>
+                <option value="BR" selected>Brasil</option>
+                <option value="PT">Portugal</option>
+                <option value="US">Estados Unidos</option>
+                <option value="AR">Argentina</option>
+                <option value="PY">Paraguai</option>
+                <option value="UY">Uruguai</option>
+                <option value="OUTRO">Outro</option>
+              </select>
+            </div>
+
+            <div class="field" data-field="documento">
+              <label for="documento">CPF ou CNPJ</label>
+              <input id="documento" name="documento" type="text" inputmode="numeric" placeholder="000.000.000-00" required>
+              <div class="error">Informe um CPF ou CNPJ.</div>
+            </div>
+
+            <div class="field" data-field="telefone">
+              <label for="telefone">Telefone celular</label>
+              <input id="telefone" name="telefone" type="tel" placeholder="(11) 99999-9999" required>
+              <div class="error">Informe um telefone válido.</div>
+            </div>
+
+            <div class="field" data-field="senha">
+              <label for="senha">Senha de acesso</label>
+              <input id="senha" name="senha" type="password" autocomplete="new-password" placeholder="mínimo 8 caracteres" required>
+              <ul class="rules" id="senhaRules">
+                <li data-rule="len">Mínimo 8 caracteres</li>
+                <li data-rule="lower">1 letra minúscula</li>
+                <li data-rule="upper">1 letra maiúscula</li>
+                <li data-rule="num">1 número</li>
+              </ul>
+              <div class="error">A senha não atende as regras.</div>
+            </div>
+
+            <div class="field" data-field="senha2">
+              <label for="senha2">Repita a senha</label>
+              <input id="senha2" name="senha2" type="password" autocomplete="new-password" required>
+              <div class="error">As senhas não coincidem.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="submitBtn">Finalizar cadastro</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2>Escolha o nível</h2>
+          <div class="levels" id="levels"></div>
+          <div class="summary" id="summary"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="success" id="success">
+      <div class="success-icon">✓</div>
+      <h2 style="margin-bottom:10px;">Cadastro criado</h2>
+      <p style="color:var(--muted); max-width:420px; margin:0 auto 24px;">
+        Conta criada. O pagamento e a ativação da participação ainda estão pendentes.
+      </p>
+      <a href="login.html" class="btn btn-primary" style="max-width:280px; margin:0 auto;">Ir para o login</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Fila Única</p>
+    <p style="margin-top:8px;"><a href="index.html">Início</a> · <a href="login.html">Login</a> · <a href="dashboard.html">Dashboard</a></p>
+  </footer>
+
+  
+</body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fila Única | Comunidade de Evolução</title>
+  <style>
+    :root {
+      --gold: #f5a623;
+      --gold-dark: #d4891a;
+      --black: #0a0a0a;
+      --dark: #111111;
+      --gray: #1a1a1a;
+      --text: #f0f0f0;
+      --muted: #a0a0a0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--black);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245, 166, 35, 0.15);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--gold), #ffd700);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    nav {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-outline:hover {
+      background: rgba(245, 166, 35, 0.1);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), #ffc107);
+      color: #111;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(245, 166, 35, 0.35);
+    }
+
+    .btn-lg {
+      padding: 16px 32px;
+      font-size: 1.05rem;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 24px 80px;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245, 166, 35, 0.18), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 60%, rgba(245, 166, 35, 0.06), transparent),
+        var(--black);
+      position: relative;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245, 166, 35, 0.12);
+      border: 1px solid rgba(245, 166, 35, 0.3);
+      color: var(--gold);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--gold), #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-card {
+      background: var(--gray);
+      border: 1px solid rgba(245, 166, 35, 0.2);
+      border-radius: 20px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), #ffd700);
+    }
+
+    .hero-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: var(--gold);
+    }
+
+    .level-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .level-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: rgba(0,0,0,0.35);
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+
+    .level-list li strong {
+      color: var(--gold);
+    }
+
+    /* How it works */
+    .section {
+      padding: 100px 24px;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .step {
+      background: var(--gray);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 32px 28px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+
+    .step:hover {
+      border-color: rgba(245, 166, 35, 0.35);
+    }
+
+    .step-num {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--gold), #ffc107);
+      color: #111;
+      font-weight: 800;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .step h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Levels table */
+    .levels-section {
+      background: var(--dark);
+    }
+
+    .levels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .level-card {
+      background: var(--gray);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .level-card:hover {
+      border-color: rgba(245, 166, 35, 0.4);
+      transform: translateY(-4px);
+    }
+
+    .level-card.highlight {
+      border-color: var(--gold);
+      background: linear-gradient(180deg, rgba(245,166,35,0.08), var(--gray));
+    }
+
+    .level-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .level-price {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .level-price span {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .level-info {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: 100px 24px;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(245, 166, 35, 0.12), transparent),
+        var(--black);
+    }
+
+    .cta h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--gold);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        display: none;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="service-banner">Cadastros disponíveis · Pagamentos ainda não habilitados</div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">◆</div>
+        Fila Única
+      </a>
+      <nav>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#niveis">Níveis</a>
+        <a href="afiliados.html">Afiliados</a>
+        <a href="dashboard.html">Dashboard</a>
+      </nav>
+      <div style="display:flex; gap:12px;">
+        <a href="login.html" class="btn btn-outline">Entrar</a>
+        <a href="cadastro.html" class="btn btn-primary">Cadastrar</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">Conheça a plataforma</div>
+        <h1>Conheça os níveis.<br><span>Acompanhe sua conta.</span></h1>
+        <p class="hero-desc">
+          Consulte a tabela de níveis, crie sua conta e acompanhe suas indicações.
+          Pagamentos, ativação de posições e saques ainda não estão disponíveis.
+        </p>
+        <div class="hero-actions">
+          <a href="cadastro.html" class="btn btn-primary btn-lg">Criar minha conta</a>
+          <a href="#como-funciona" class="btn btn-outline btn-lg">Ver como funciona</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Valores de referência</h3>
+        <ul class="level-list">
+          <li><span>Bronze</span> <strong>R$ 30</strong></li>
+          <li><span>Prata</span> <strong>R$ 60</strong></li>
+          <li><span>Ouro</span> <strong>R$ 90</strong></li>
+          <li><span>Platina</span> <strong>R$ 200</strong></li>
+          <li><span>Safira</span> <strong>R$ 400</strong></li>
+          <li><span>Esmeralda</span> <strong>R$ 800</strong></li>
+          <li><span>Rubi</span> <strong>R$ 1.600</strong></li>
+          <li><span>Diamante</span> <strong>R$ 3.200</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Como funciona -->
+  <section class="section" id="como-funciona">
+    <div class="section-inner">
+      <div class="section-title">
+        <h2>Como funciona</h2>
+        <p>Cadastro e consulta disponíveis; ativação financeira pendente</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Entre no Bronze</h3>
+          <p>Crie sua conta e consulte o Bronze, com valor de referência de R$ 30. O cadastro não ativa uma posição.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Consulte a tabela</h3>
+          <p>Veja a distribuição prevista para cada par de ciclos. Esses valores não representam recebimentos confirmados.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Acompanhe sua conta</h3>
+          <p>Compartilhe seu link e veja os cadastros indicados. A integração financeira será disponibilizada em uma etapa futura.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Níveis -->
+  <section class="section levels-section" id="niveis">
+    <div class="section-inner">
+      <div class="section-title">
+        <h2>Todos os níveis</h2>
+        <p>Valores da tabela; Safira a Rubi são projeções e o Diamante aguarda definição</p>
+      </div>
+      <div class="levels-grid">
+        <div class="level-card highlight">
+          <div class="level-name">Bronze</div>
+          <div class="level-price">R$ 30</div>
+          <div class="level-info">Entrada inicial<br>Previsão no par: R$ 30</div>
+        </div>
+        <div class="level-card">
+          <div class="level-name">Prata</div>
+          <div class="level-price">R$ 60</div>
+          <div class="level-info">Previsão no par: R$ 210</div>
+        </div>
+        <div class="level-card">
+          <div class="level-name">Ouro</div>
+          <div class="level-price">R$ 90</div>
+          <div class="level-info">Previsão no par: R$ 206,66</div>
+        </div>
+        <div class="level-card">
+          <div class="level-name">Platina</div>
+          <div class="level-price">R$ 200</div>
+          <div class="level-info">Previsão no par: R$ 533,34</div>
+        </div>
+        <div class="level-card">
+          <div class="level-name">Safira</div>
+          <div class="level-price">R$ 400</div>
+          <div class="level-info">Previsão no par: R$ 1.066,66</div>
+        </div>
+        <div class="level-card">
+          <div class="level-name">Esmeralda</div>
+          <div class="level-price">R$ 800</div>
+          <div class="level-info">Previsão no par: R$ 2.133,34</div>
+        </div>
+        <div class="level-card">
+          <div class="level-name">Rubi</div>
+          <div class="level-price">R$ 1.600</div>
+          <div class="level-info">Previsão no par: R$ 4.266,66</div>
+        </div>
+        <div class="level-card">
+          <div class="level-name">Diamante</div>
+          <div class="level-price">R$ 3.200</div>
+          <div class="level-info">Distribuição e saque<br>A definir</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA final -->
+  <section class="cta">
+    <h2>Quer acompanhar a plataforma?</h2>
+    <p>Crie sua conta sem cobrança. Nenhuma posição será ativada até a confirmação futura de pagamento.</p>
+    <a href="cadastro.html" class="btn btn-primary btn-lg">Quero me cadastrar agora</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Fila Única. Todos os direitos reservados.</p>
+    <p style="margin-top:8px;">
+      <a href="cadastro.html">Cadastro</a> ·
+      <a href="login.html">Login</a> ·
+      <a href="dashboard.html">Dashboard</a> ·
+      <a href="afiliados.html">Afiliados</a>
+    </p>
+  </footer>
+
+</body>
+</html>

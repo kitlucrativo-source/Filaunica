@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Fila Única</title>
+  <style>
+    :root {
+      --gold: #f5a623;
+      --black: #0a0a0a;
+      --dark: #111;
+      --gray: #1a1a1a;
+      --text: #f0f0f0;
+      --muted: #a0a0a0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--black);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    a { text-decoration: none; color: inherit; }
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,10,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245,166,35,.15);
+    }
+    .header-inner {
+      max-width: 1180px; margin: 0 auto; padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+    .logo-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold), #ffd700);
+      display: flex; align-items: center; justify-content: center;
+    }
+    nav { display: flex; gap: 18px; color: var(--muted); font-size: .9rem; font-weight: 500; }
+    nav a:hover { color: var(--gold); }
+    nav a.active { color: var(--gold); }
+    .userbox { display: flex; align-items: center; gap: 12px; font-size: .85rem; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: .85rem;
+      border: none; cursor: pointer; font-family: inherit; color: inherit;
+    }
+    .btn-outline { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); }
+    .btn-primary { background: linear-gradient(135deg, var(--gold), #ffc107); color: #111; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 24px 72px; }
+    h1 { font-size: 1.6rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: 6px; }
+    .muted { color: var(--muted); }
+    .kpis {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0 22px;
+    }
+    .kpi {
+      background: var(--gray); border: 1px solid rgba(255,255,255,.06);
+      border-radius: 14px; padding: 18px;
+    }
+    .kpi span { display: block; font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+    .kpi strong { font-size: 1.35rem; font-weight: 800; color: var(--gold); }
+    .grid { display: grid; grid-template-columns: 1.4fr .8fr; gap: 18px; }
+    .card {
+      background: var(--gray); border: 1px solid rgba(255,255,255,.06);
+      border-radius: 16px; padding: 22px;
+    }
+    .card h2 { font-size: 1.05rem; margin-bottom: 16px; color: var(--gold); }
+    .pos {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .pos:last-child { border-bottom: none; }
+    .dots { display: flex; gap: 6px; }
+    .dot {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #2a2a2a; color: #777; font-size: .7rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dot.on { background: var(--gold); color: #111; }
+    .progress {
+      height: 8px; background: #2a2a2a; border-radius: 99px; overflow: hidden; margin: 10px 0 6px;
+    }
+    .progress > i { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), #ffd700); }
+    .linkbox {
+      display: flex; gap: 8px; margin-top: 10px;
+    }
+    .linkbox input {
+      flex: 1; background: #0d0d0d; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; padding: 10px 12px; color: var(--text); font-size: .85rem;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: .85rem; margin-top: 8px; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid rgba(255,255,255,.06); }
+    th { color: var(--muted); font-weight: 600; font-size: .75rem; text-transform: uppercase; }
+    .tag {
+      display: inline-block; padding: 3px 8px; border-radius: 99px; font-size: .72rem; font-weight: 700;
+      background: rgba(245,166,35,.15); color: var(--gold);
+    }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .kpis, .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="service-banner">Cadastros disponíveis · Pagamentos ainda não habilitados</div>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-icon">◆</div>Fila Única</a>
+      <nav>
+        <a class="active" href="dashboard.html">Dashboard</a>
+        <a href="afiliados.html">Afiliados</a>
+        <a href="index.html#niveis">Níveis</a>
+      </nav>
+      <div class="userbox">
+        <span id="who">—</span>
+        <button class="btn btn-outline" id="logout">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <h1>Área de membros</h1>
+    <p class="muted" id="hello">Carregando sua conta...</p>
+
+    <div class="kpis">
+      <div class="kpi"><span>Saldo livre</span><strong id="saldo">R$ 0,00</strong></div>
+      <div class="kpi"><span>Bônus patrocinador</span><strong id="bonus">R$ 0,00</strong></div>
+      <div class="kpi"><span>Nível solicitado</span><strong id="nivel">Bronze</strong></div>
+      <div class="kpi"><span>Posições ativas</span><strong id="posicoes">0</strong></div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="card" style="margin-bottom:18px;">
+          <h2>Suas posições</h2>
+          <div id="positions"></div><div id="pendingOrders"></div>
+        </div>
+        <div class="card">
+          <h2>Ciclos confirmados</h2>
+          <div class="table-scroll"><table>
+            <thead>
+              <tr><th>Ciclo</th><th>Recebido</th><th>Patrocinador</th><th>Reentrada</th><th>Saque</th></tr>
+            </thead>
+            <tbody id="hist"></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card" style="margin-bottom:18px;">
+          <h2>Link de indicação</h2>
+          <p class="muted" style="font-size:.85rem;">Cadastros feitos com seu link são registrados como indicações diretas.</p>
+          <div class="linkbox">
+            <input id="refLink" readonly>
+            <button class="btn btn-primary" id="copyBtn" type="button">Copiar</button>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Próximo passo</h2>
+          <p class="muted" id="nextStep" style="font-size:.9rem;"></p>
+          <div class="actions">
+            <a class="btn btn-primary" href="afiliados.html">Ver afiliados</a>
+            <a class="btn btn-outline" href="pagamento.html">Ver pagamento</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</body>
+</html>

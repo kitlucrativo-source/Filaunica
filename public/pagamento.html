@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagamento | Fila Única</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 20px; }
+    .row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .row strong { color: var(--gold); }
+    .pix { margin-top: 16px; padding: 16px; background: #0d0d0d; border-radius: 12px; text-align: center; }
+    .pix-code { font-size: .8rem; word-break: break-all; color: var(--muted); margin: 10px 0; }
+    @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="service-banner">Cadastros disponíveis · Pagamentos ainda não habilitados</div>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-icon">◆</div>Fila Única</a>
+      <div class="header-actions">
+        <a href="dashboard.html" class="btn btn-outline">Dashboard</a>
+        <a href="perfil.html" class="btn btn-outline">Voltar</a>
+      </div>
+    </div>
+  </header>
+  <div class="wrap" style="max-width:900px;">
+    <h1>Pagamento pendente</h1>
+    <p class="muted" style="margin:8px 0 24px;">Você pode registrar sua intenção de participação. Nenhuma cobrança ou ativação será feita enquanto os pagamentos estiverem indisponíveis.</p>
+    <div class="grid">
+      <div class="card">
+        <h2 style="color:var(--gold);margin-bottom:14px;">Resumo</h2>
+        <div class="row"><span>Login</span><strong id="login">—</strong></div>
+        <div class="row"><span>Nível</span><strong id="nivel">Bronze</strong></div>
+        <div class="row"><span>Valor</span><strong id="valor">R$ 30,00</strong></div>
+        <div class="row"><span>Patrocinador</span><strong id="sponsor">—</strong></div>
+        <div class="pix">
+          <p>Mercado Pago</p>
+          <div class="pix-code" id="pix">Aguardando configuração — nenhum Pix foi gerado.</div>
+        </div>
+      </div>
+      <div class="card gold-bar">
+        <h2 style="color:var(--gold);margin-bottom:12px;">Sua solicitação</h2>
+<label for="nivelPedido">Nível</label><select id="nivelPedido"></select>
+<button id="saveOrder" class="btn btn-outline" type="button">Registrar solicitação pendente</button>
+        <button class="btn btn-primary" style="width:100%;" id="payBtn" type="button" disabled>Pagamento indisponível</button>
+        <a href="perfil.html" class="btn btn-outline" style="width:100%;margin-top:10px;">Editar perfil</a>
+      </div>
+    </div>
+  </div>
+  <footer><p><a href="index.html">Início</a></p></footer>
+  
+</body>
+</html>

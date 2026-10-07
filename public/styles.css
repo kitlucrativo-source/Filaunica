@@ -1,0 +1,91 @@
+:root {
+  --gold: #f5a623;
+  --black: #0a0a0a;
+  --dark: #111;
+  --gray: #1a1a1a;
+  --text: #f0f0f0;
+  --muted: #a0a0a0;
+  --danger: #ff6b6b;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: Inter, system-ui, sans-serif;
+  background: var(--black);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+a { text-decoration: none; color: inherit; }
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,10,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(245,166,35,.15);
+}
+.header-inner {
+  max-width: 1180px; margin: 0 auto; padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+.logo-icon {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--gold), #ffd700);
+  display: flex; align-items: center; justify-content: center;
+}
+nav { display: flex; gap: 18px; color: var(--muted); font-size: .9rem; font-weight: 500; }
+nav a:hover, nav a.active { color: var(--gold); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 12px 20px; border-radius: 10px; font-weight: 600; font-size: .9rem;
+  border: none; cursor: pointer; font-family: inherit; color: inherit;
+}
+.btn-outline { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); }
+.btn-primary { background: linear-gradient(135deg, var(--gold), #ffc107); color: #111; }
+.btn-lg { padding: 16px 28px; }
+.header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 36px 24px 80px; }
+.narrow { max-width: 480px; }
+h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -.03em; }
+.muted { color: var(--muted); }
+.card {
+  background: var(--gray);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 16px;
+  padding: 24px;
+}
+.gold-bar { position: relative; overflow: hidden; }
+.gold-bar::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), #ffd700);
+}
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: 6px; }
+.field input, .field select {
+  width: 100%; background: #0d0d0d; border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px; padding: 12px 14px; color: var(--text); font: inherit; outline: none;
+}
+.field input:focus, .field select:focus { border-color: var(--gold); }
+.error { color: var(--danger); font-size: .8rem; margin-top: 4px; display: none; }
+.field.has-error input, .field.has-error select { border-color: var(--danger); }
+.field.has-error .error { display: block; }
+.field.has-ok input { border-color: var(--gold); }
+.rules { list-style: none; margin-top: 8px; display: grid; gap: 4px; font-size: .78rem; color: var(--muted); }
+.rules li::before { content: '○ '; }
+.rules li.ok { color: var(--gold); }
+.rules li.ok::before { content: '● '; }
+.alert, .okmsg {
+  display: none; padding: 10px 12px; border-radius: 10px; font-size: .85rem; margin-bottom: 14px;
+}
+.alert { background: rgba(255,107,107,.12); border: 1px solid rgba(255,107,107,.35); color: #ffb3b3; }
+.okmsg { background: rgba(245,166,35,.12); border: 1px solid rgba(245,166,35,.35); color: var(--gold); }
+.alert.show, .okmsg.show { display: block; }
+footer {
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 28px 24px; text-align: center; color: var(--muted); font-size: .85rem;
+}
+footer a { color: var(--gold); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 22px 0; }
+.kpi { background: var(--gray); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; padding: 18px; }
+.kpi span { display: block; font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.kpi strong { font-size: 1.3rem; font-weight: 800; color: var(--gold); }
+@media (max-width: 860px) { nav { display: none; } }
