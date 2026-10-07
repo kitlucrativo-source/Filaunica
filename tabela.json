@@ -1,0 +1,220 @@
+{
+  "bronze": {
+    "nome": "Bronze",
+    "valor_entrada": 30,
+    "valor_fila": 20,
+    "proximo": "prata",
+    "ciclos": [
+      {
+        "recebido": 8000,
+        "reserva_anterior": 0,
+        "patrocinador": 1000,
+        "reentrada": 2000,
+        "reserva": 2000,
+        "subida_de_nivel": 0,
+        "saque": 3000
+      },
+      {
+        "recebido": 8000,
+        "reserva_anterior": 2000,
+        "patrocinador": 2000,
+        "reentrada": 2000,
+        "reserva": 0,
+        "subida_de_nivel": 6000,
+        "saque": 0
+      }
+    ],
+    "situacao": "Definido"
+  },
+  "prata": {
+    "nome": "Prata",
+    "valor_entrada": 60,
+    "valor_fila": 60,
+    "proximo": "ouro",
+    "ciclos": [
+      {
+        "recebido": 24000,
+        "reserva_anterior": 0,
+        "patrocinador": 3000,
+        "reentrada": 6000,
+        "reserva": 0,
+        "subida_de_nivel": 0,
+        "saque": 15000
+      },
+      {
+        "recebido": 24000,
+        "reserva_anterior": 0,
+        "patrocinador": 3000,
+        "reentrada": 6000,
+        "reserva": 0,
+        "subida_de_nivel": 9000,
+        "saque": 6000
+      }
+    ],
+    "situacao": "Definido"
+  },
+  "ouro": {
+    "nome": "Ouro",
+    "valor_entrada": 90,
+    "valor_fila": 90,
+    "proximo": "platina",
+    "ciclos": [
+      {
+        "recebido": 36000,
+        "reserva_anterior": 0,
+        "patrocinador": 6667,
+        "reentrada": 9000,
+        "reserva": 0,
+        "subida_de_nivel": 0,
+        "saque": 20333
+      },
+      {
+        "recebido": 36000,
+        "reserva_anterior": 0,
+        "patrocinador": 6667,
+        "reentrada": 9000,
+        "reserva": 0,
+        "subida_de_nivel": 20000,
+        "saque": 333
+      }
+    ],
+    "situacao": "Definido"
+  },
+  "platina": {
+    "nome": "Platina",
+    "valor_entrada": 200,
+    "valor_fila": 200,
+    "proximo": "safira",
+    "ciclos": [
+      {
+        "recebido": 80000,
+        "reserva_anterior": 0,
+        "patrocinador": 13333,
+        "reentrada": 20000,
+        "reserva": 0,
+        "subida_de_nivel": 0,
+        "saque": 46667
+      },
+      {
+        "recebido": 80000,
+        "reserva_anterior": 0,
+        "patrocinador": 13333,
+        "reentrada": 20000,
+        "reserva": 0,
+        "subida_de_nivel": 40000,
+        "saque": 6667
+      }
+    ],
+    "situacao": "Definido"
+  },
+  "safira": {
+    "nome": "Safira",
+    "valor_entrada": 400,
+    "valor_fila": 400,
+    "proximo": "esmeralda",
+    "ciclos": [
+      {
+        "recebido": 160000,
+        "reserva_anterior": 0,
+        "patrocinador": 26667,
+        "reentrada": 40000,
+        "reserva": 0,
+        "subida_de_nivel": 0,
+        "saque": 93333
+      },
+      {
+        "recebido": 160000,
+        "reserva_anterior": 0,
+        "patrocinador": 26667,
+        "reentrada": 40000,
+        "reserva": 0,
+        "subida_de_nivel": 80000,
+        "saque": 13333
+      }
+    ],
+    "situacao": "Projeção para revisar"
+  },
+  "esmeralda": {
+    "nome": "Esmeralda",
+    "valor_entrada": 800,
+    "valor_fila": 800,
+    "proximo": "rubi",
+    "ciclos": [
+      {
+        "recebido": 320000,
+        "reserva_anterior": 0,
+        "patrocinador": 53333,
+        "reentrada": 80000,
+        "reserva": 0,
+        "subida_de_nivel": 0,
+        "saque": 186667
+      },
+      {
+        "recebido": 320000,
+        "reserva_anterior": 0,
+        "patrocinador": 53333,
+        "reentrada": 80000,
+        "reserva": 0,
+        "subida_de_nivel": 160000,
+        "saque": 26667
+      }
+    ],
+    "situacao": "Projeção para revisar"
+  },
+  "rubi": {
+    "nome": "Rubi",
+    "valor_entrada": 1600,
+    "valor_fila": 1600,
+    "proximo": "diamante",
+    "ciclos": [
+      {
+        "recebido": 640000,
+        "reserva_anterior": 0,
+        "patrocinador": 106667,
+        "reentrada": 160000,
+        "reserva": 0,
+        "subida_de_nivel": 0,
+        "saque": 373333
+      },
+      {
+        "recebido": 640000,
+        "reserva_anterior": 0,
+        "patrocinador": 106667,
+        "reentrada": 160000,
+        "reserva": 0,
+        "subida_de_nivel": 320000,
+        "saque": 53333
+      }
+    ],
+    "situacao": "Projeção para revisar"
+  },
+  "diamante": {
+    "nome": "Diamante",
+    "valor_entrada": 3200,
+    "valor_fila": 3200,
+    "proximo": null,
+    "ciclos": [
+      {
+        "recebido": 1280000,
+        "reserva_anterior": 0,
+        "patrocinador": null,
+        "reentrada": 320000,
+        "reserva": 0,
+        "subida_de_nivel": null,
+        "saque": null,
+        "saldo_provisorio": 960000
+      },
+      {
+        "recebido": 1280000,
+        "reserva_anterior": 0,
+        "patrocinador": null,
+        "reentrada": 320000,
+        "reserva": 0,
+        "subida_de_nivel": null,
+        "saque": null,
+        "saldo_provisorio": 960000
+      }
+    ],
+    "situacao": "Regra final em aberto"
+  }
+}

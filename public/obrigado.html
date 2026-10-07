@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitação pendente | Fila Única</title>
+  <style>
+    :root {
+      --gold: #f5a623;
+      --black: #0a0a0a;
+      --gray: #1a1a1a;
+      --text: #f0f0f0;
+      --muted: #a0a0a0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% -10%, rgba(245,166,35,.18), transparent),
+        var(--black);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,10,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245,166,35,.15);
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto; padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+    .logo-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold), #ffd700);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .wrap { max-width: 560px; margin: 0 auto; padding: 64px 24px 80px; }
+    .card {
+      background: var(--gray);
+      border: 1px solid rgba(245,166,35,.22);
+      border-radius: 20px;
+      padding: 40px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), #ffd700);
+    }
+    .check {
+      width: 76px; height: 76px; margin: 0 auto 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), #ffd700);
+      color: #111; font-size: 2.1rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    h1 { font-size: 1.7rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: 8px; }
+    .sub { color: var(--muted); margin-bottom: 28px; }
+    .box {
+      background: #0d0d0d;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      padding: 16px 18px;
+      text-align: left;
+      margin-bottom: 22px;
+    }
+    .row {
+      display: flex; justify-content: space-between; gap: 12px;
+      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.06);
+      font-size: .92rem;
+    }
+    .row:last-child { border-bottom: none; }
+    .row span { color: var(--muted); }
+    .row strong { color: var(--gold); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 22px; border-radius: 10px; font-weight: 700;
+      background: linear-gradient(135deg, var(--gold), #ffc107); color: #111;
+      width: 100%; margin-bottom: 10px;
+    }
+    .btn-ghost {
+      background: transparent; border: 1.5px solid var(--gold); color: var(--gold);
+    }
+    footer { text-align: center; color: var(--muted); font-size: .85rem; }
+    footer a { color: var(--gold); }
+  </style>
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="service-banner">Cadastros disponíveis · Pagamentos ainda não habilitados</div>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-icon">◆</div>Fila Única</a>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="check">…</div>
+      <h1>Solicitação pendente</h1>
+      <p class="sub">Nenhum pagamento foi confirmado e nenhuma posição está ativa. Acompanhe a disponibilidade pela área de membros.</p>
+
+      <div class="box" id="recibo">
+        <div class="row"><span>Protocolo</span><strong id="protocolo">—</strong></div>
+        <div class="row"><span>Status</span><strong>Pendente</strong></div>
+        <div class="row"><span>Nível</span><strong id="nivel">Bronze</strong></div>
+        <div class="row"><span>Valor</span><strong id="valor">R$ 30,00</strong></div>
+        <div class="row"><span>Login</span><strong id="login">—</strong></div>
+      </div>
+
+      <a class="btn" href="dashboard.html">Ir para o dashboard</a>
+      <a class="btn btn-ghost" href="login.html?ok=1">Acessar minha conta</a>
+    </div>
+  </div>
+
+  <footer>
+    <p><a href="index.html">Voltar ao início</a> · <a href="dashboard.html">Dashboard</a></p>
+  </footer>
+
+  
+</body>
+</html>

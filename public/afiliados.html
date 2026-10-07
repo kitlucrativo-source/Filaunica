@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Afiliados | Fila Única</title>
+  <style>
+    :root {
+      --gold: #f5a623;
+      --black: #0a0a0a;
+      --gray: #1a1a1a;
+      --text: #f0f0f0;
+      --muted: #a0a0a0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--black);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,10,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245,166,35,.15);
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto; padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+    .logo-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold), #ffd700);
+      display: flex; align-items: center; justify-content: center;
+    }
+    nav { display: flex; gap: 18px; color: var(--muted); font-size: .9rem; font-weight: 500; }
+    nav a:hover, nav a.active { color: var(--gold); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: .85rem;
+      border: none; cursor: pointer; font-family: inherit;
+    }
+    .btn-outline { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); }
+    .btn-primary { background: linear-gradient(135deg, var(--gold), #ffc107); color: #111; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 36px 24px 80px; }
+    h1 { font-size: clamp(1.7rem, 4vw, 2.3rem); font-weight: 800; letter-spacing: -.03em; margin-bottom: 8px; }
+    .lead { color: var(--muted); max-width: 640px; margin-bottom: 28px; }
+    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 22px; }
+    .kpi {
+      background: var(--gray); border: 1px solid rgba(255,255,255,.06);
+      border-radius: 14px; padding: 18px;
+    }
+    .kpi span { display: block; font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+    .kpi strong { font-size: 1.35rem; font-weight: 800; color: var(--gold); }
+    .grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; }
+    .card {
+      background: var(--gray); border: 1px solid rgba(255,255,255,.06);
+      border-radius: 16px; padding: 22px;
+    }
+    .card h2 { font-size: 1.05rem; margin-bottom: 14px; color: var(--gold); }
+    .steps { display: grid; gap: 12px; }
+    .step {
+      display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: start;
+    }
+    .n {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold), #ffc107); color: #111;
+      font-weight: 800; display: flex; align-items: center; justify-content: center;
+    }
+    .step p { color: var(--muted); font-size: .9rem; }
+    .linkbox { display: flex; gap: 8px; margin-top: 8px; }
+    .linkbox input {
+      flex: 1; background: #0d0d0d; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; padding: 10px 12px; color: var(--text); font-size: .85rem;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid rgba(255,255,255,.06); }
+    th { color: var(--muted); font-size: .72rem; text-transform: uppercase; }
+    .empty { color: var(--muted); font-size: .9rem; padding: 12px 0; }
+    footer {
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 28px 24px; text-align: center; color: var(--muted); font-size: .85rem;
+    }
+    footer a { color: var(--gold); }
+    @media (max-width: 860px) {
+      nav { display: none; }
+      .kpis, .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="service-banner">Cadastros disponíveis · Pagamentos ainda não habilitados</div>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-icon">◆</div>Fila Única</a>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a class="active" href="afiliados.html">Afiliados</a>
+        <a href="index.html#niveis">Níveis</a>
+      </nav>
+      <div style="display:flex; gap:10px;">
+        <a class="btn btn-primary" href="dashboard.html">Dashboard</a>
+        <a class="btn btn-outline" href="cadastro.html">Cadastrar</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <h1>Programa de afiliados</h1>
+    <p class="lead">Compartilhe seu link e acompanhe os cadastros indicados. Nenhum bônus é liberado pelo simples cadastro.</p>
+    <p style="margin:-12px 0 24px;"><a class="btn btn-primary" href="dashboard.html" style="display:inline-flex; width:auto;">Ir para o dashboard</a></p>
+
+    <div class="kpis">
+      <div class="kpi"><span>Regra do bônus</span><strong>Por nível e ciclo</strong></div>
+      <div class="kpi"><span>Indicados</span><strong id="count">0</strong></div>
+      <div class="kpi"><span>Bônus acumulado</span><strong id="bonus">R$ 0,00</strong></div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Como funciona</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="n">1</div>
+            <div>
+              <strong>Copie seu link</strong>
+              <p>Cada cadastro com o seu ID fica como seu direto.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="n">2</div>
+            <div>
+              <strong>Ele entra na fila</strong>
+              <p>O cadastro fica pendente; não cria posição ativa nem confirma pagamento.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="n">3</div>
+            <div>
+              <strong>Consulte a distribuição</strong>
+              <p>A tabela define valores diferentes por nível e ciclo. Consulte a previsão no Histórico; o Diamante ainda tem regras em aberto.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 style="margin-top:24px;">Seu link</h2>
+        <div class="linkbox">
+          <input id="refLink" readonly>
+          <button class="btn btn-primary" id="copyBtn" type="button">Copiar</button>
+        </div>
+        <p class="empty" id="loginHint"></p>
+      </div>
+
+      <div class="card">
+        <h2>Seus diretos</h2>
+        <div id="list" class="empty">Nenhum indicado ainda. Compartilhe o link.</div>
+        <table id="table" style="display:none;">
+          <thead>
+            <tr><th>Login</th><th>Nível</th><th>Status</th></tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Fila Única · <a href="index.html">Início</a> · <a href="dashboard.html">Dashboard</a> · <a href="login.html">Login</a></p>
+  </footer>
+
+  
+</body>
+</html>
