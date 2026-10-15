@@ -3,6 +3,7 @@ import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
+import { createCourseCheckout } from './course-checkout.js';
 import { ROOT, TABLE, openStore, hash, token, passwordHash, passwordMatches, validPassword, publicUser, transaction } from './store.js';
 
 export function createApp(options = {}) {
@@ -16,6 +17,7 @@ export function createApp(options = {}) {
   const sessionMs = 7 * 24 * 60 * 60 * 1000;
   const fail = (status, message) => { const error = new Error(message); error.status = status; throw error; };
   const audit = (id, action) => db.prepare('INSERT INTO audit(user_id,action,created_at) VALUES(?,?,?)').run(id, action, Date.now());
+  const courses = createCourseCheckout({db,origin,fail,send,body,limit});
   const dummyPassword = passwordHash(token());
   let cryptoJobs = 0;
   async function withCrypto(fn) {
@@ -66,10 +68,12 @@ export function createApp(options = {}) {
     const method = req.method, route = url.pathname;
     res.setHeader('Cache-Control', 'no-store');
     const ip = req.socket.remoteAddress || 'unknown'; // Não confiar em cabeçalhos de IP enviados pelo cliente.
+    if (method === 'POST' && route === '/api/webhooks/mercado-pago') return courses.webhook(req,res,url);
     if (!['GET','HEAD'].includes(method)) {
       if (req.headers.origin !== origin || req.headers['x-fila-request'] !== '1') fail(403, 'Origem da solicitação não autorizada.');
       limit(`write:${ip}`, 200);
     }
+    if (method === 'GET' && route === '/api/courses') return courses.list(res);
     if (method === 'GET' && route === '/api/config') return send(res, 200, { levels: TABLE, paymentsEnabled: false, withdrawalsEnabled: false, recoveryMode: 'manual', minimumWithdrawalCents: 3000 });
     if (method === 'POST' && route === '/api/register') {
       limit(`register:${ip}`, 15);
@@ -126,6 +130,7 @@ export function createApp(options = {}) {
       res.setHeader('Set-Cookie',sessionCookie('',0));return send(res,200,{message:'Senha atualizada. Entre novamente.'});
     }
     const u = session(req);
+    if (route === '/api/courses/buy' || route === '/api/course-orders' || route.startsWith('/api/course-orders/') || route === '/api/my-courses' || route.startsWith('/api/course-content/')) return courses.userRoute(req,res,url,u);
     if (method === 'GET' && route === '/api/me') return send(res,200,{user:publicUser(db,u)});
     if (method === 'POST' && route === '/api/logout') {
       await body(req); db.prepare('DELETE FROM sessions WHERE digest=?').run(u.session_digest);

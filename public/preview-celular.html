@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#121315">
+<title>Fila Única | Prévia do novo painel</title>
+<style>
+:root{--ink:#171719;--gold:#dca544;--forest:#488b59;--border:#e9e9eb;--paper:#f7f7f9;--sidebar:#131416;--muted:#6f727b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:#242427;font:15px/1.48 system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+button{font:inherit;cursor:pointer}a{text-decoration:none;color:inherit}button:focus-visible,a:focus-visible{outline:3px solid #ba7c16;outline-offset:3px}
+.sidebar{position:fixed;z-index:20;left:0;top:0;bottom:0;width:238px;background:linear-gradient(170deg,#0b0c0e,#303136);color:#fafafa;display:flex;flex-direction:column}
+.brand{height:89px;display:flex;align-items:center;gap:9px;padding:16px 19px;background:#0b0b0c}
+.brand-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:50%;color:#1b1408;background:linear-gradient(145deg,#ffe19a,#b57417);font-size:24px;font-weight:900}
+.brand strong{font-size:18px;color:#f8c76e;letter-spacing:-.025em}.brand small{display:block;font-size:9px;color:#e6e2da;letter-spacing:.13em}
+.navigation{padding:9px 12px;overflow:auto}.navigation button{display:flex;gap:12px;align-items:center;width:100%;padding:12px 12px;border:0;border-bottom:1px solid #ffffff17;background:transparent;color:#e7e7e8;text-align:left;border-radius:5px;font-size:13px;font-weight:650}
+.navigation button:hover,.navigation button.active{background:#5b4728;color:#ffdb9b}.navigation button .ico{font-size:17px;width:23px;text-align:center}
+.sidebar-foot{margin-top:auto;padding:14px 21px;font-size:11px;color:#bdbfc3;border-top:1px solid #ffffff17}.top-mobile{display:none}
+.main{margin-left:238px;min-height:100vh}.demo-strip{background:#fdf0d1;color:#72501c;text-align:center;padding:8px 14px;font-size:12px;font-weight:650;border-bottom:1px solid #e4cb93}
+.content{max-width:1200px;padding:23px clamp(15px,3.6vw,44px) 65px;margin:auto}
+.hero{display:flex;gap:12px;align-items:center;justify-content:space-between;min-height:180px;padding:25px 33px;overflow:hidden;border-radius:12px;color:white;background:radial-gradient(circle at 86% 20%,#9e6c23 0%,transparent 29%),linear-gradient(120deg,#0c0c0b 15%,#272014 71%,#101010)}
+.hero .eyebrow{text-transform:uppercase;color:#ffd289;letter-spacing:.2em;font-weight:800;font-size:11px}.hero h1{font-size:clamp(23px,3vw,36px);line-height:1.12;margin:8px 0;max-width:660px}.hero p{color:#f0e0c8;margin:0;font-size:13px;max-width:500px}.medal-big{display:grid;place-items:center;flex:none;background:radial-gradient(circle at 30% 25%,#b78a3c,#34230b 68%);color:#fbe1ac;width:108px;height:108px;border-radius:50%;border:6px solid #d8a249;font-size:27px;font-weight:900;box-shadow:0 0 0 5px #624118}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:18px 0 26px}.stat{border-radius:11px;padding:16px 18px;color:white;min-height:90px;box-shadow:0 4px 12px #2222220d}.stat:nth-child(1){background:#171718}.stat:nth-child(2){background:#d8a653;color:#35200d}.stat:nth-child(3){background:#aa8143}.stat small{display:block;font-size:11px;text-transform:uppercase;opacity:.82;letter-spacing:.075em;font-weight:650}.stat strong{display:block;margin-top:5px;font-size:24px}
+h2{font-size:21px;margin:30px 0 3px;letter-spacing:-.03em}h3{font-size:15px;margin:0}.muted{color:var(--muted);font-size:13px;margin:0}.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:15px 0 27px}.quick button{background:white;border:1px solid #99bb9d;color:#40774b;border-radius:8px;padding:11px 7px;min-height:49px;font-size:12px;font-weight:750}.quick button:hover{background:#e9f8ec}
+.community-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:15px}.community{display:flex;gap:13px;align-items:center;width:100%;min-height:92px;background:white;border:1px solid var(--border);border-radius:12px;padding:12px;text-align:left;color:#29292b}.community:focus,.community:hover{border-color:#d7b681;box-shadow:0 4px 15px #a0782920}.community .medal{display:grid;place-items:center;flex:none;width:58px;height:58px;border-radius:50%;border:4px double #f0c16c;color:#f7e4b6;font-weight:850;letter-spacing:.02em;background:linear-gradient(130deg,#aa7627,#392c18)}.community:nth-child(2) .medal{background:linear-gradient(130deg,#b4b7bd,#4d515c)}.community:nth-child(3) .medal{background:linear-gradient(130deg,#efbe42,#735218)}.community:nth-child(4) .medal{background:linear-gradient(130deg,#acbcc4,#4c6775)}
+.community h3{margin:0 0 3px}.community small{display:block;color:#696c74;font-size:11px}.bubbles{display:flex;gap:5px;margin-top:7px}.bubbles i{display:inline-block;width:22px;height:22px;border:2px solid white;border-radius:50%;background:#dedee1;box-shadow:0 0 0 1px #dadadc}
+.course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:15px}.course{border:1px solid var(--border);border-radius:11px;overflow:hidden;background:white}.course-art{height:120px;display:grid;place-items:center;background:linear-gradient(130deg,#151413,#836029);color:#ffe6b4;font-size:17px;font-weight:850;text-align:center;padding:12px}.course:nth-child(2) .course-art{background:linear-gradient(135deg,#142b21,#396e58)}.course:nth-child(3) .course-art{background:linear-gradient(135deg,#202240,#626eb5)}.course-body{padding:13px 14px 18px}.course-body p{font-size:12px;color:#767981;margin:3px 0 0}
+.panel{background:white;border:1px solid var(--border);border-radius:12px;padding:21px;margin-top:18px}.panel p{color:#626771;font-size:13px}.tag{display:inline-block;border-radius:7px;padding:4px 8px;background:#faf0d9;color:#6b511d;font-size:11px;font-weight:800}
+.page[hidden]{display:none!important}.page-head{margin-bottom:18px}.page-head h1{font-size:26px;margin:0 0 5px}.back{border:0;color:#855b1c;background:transparent;font-weight:800;padding:0 0 14px}
+.levels{display:flex;gap:7px;overflow-x:auto;padding:11px 0}.level{flex:none;border:1px solid #d7d7da;background:#fff;border-radius:6px;padding:8px 14px;color:#4f4f54;font-size:12px}.level.active{background:#3d3223;color:#ffdf9d;border-color:#a87930}.details{display:flex;gap:16px;align-items:center;margin-top:17px}.details .medal{flex:none;background:#58401c;border:4px double #dfb765;color:#ffe1a2;display:grid;place-items:center;width:75px;height:75px;border-radius:50%;font-weight:800;font-size:18px}
+.empty{display:grid;place-items:center;text-align:center;border:1px dashed #cfcfd2;border-radius:11px;padding:29px 14px;background:#fafafb;color:#686971;margin-top:14px}.empty .symbol{font-size:28px;margin-bottom:5px}.notice{padding:12px 14px;background:#fff3dc;border:1px solid #edcd8e;border-radius:8px;color:#76511d;font-size:12px}
+@media(max-width:970px){.quick{grid-template-columns:repeat(2,1fr)}.course-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.sidebar{width:min(285px,84vw);transform:translateX(-100%);transition:transform .2s}.sidebar.open{transform:translateX(0)}.top-mobile{display:flex;align-items:center;gap:12px;height:57px;padding:9px 14px;background:#111;color:#f3c375;position:sticky;top:0;z-index:10;font-weight:850}.top-mobile button{border:1px solid #56452e;border-radius:6px;padding:5px 10px;background:#28231b;color:#f7c778;font-size:21px}.overlay{display:none;position:fixed;inset:0;background:#0009;z-index:19}.overlay.show{display:block}.main{margin-left:0}.content{padding:15px 14px 50px}.community-list{grid-template-columns:1fr}.course-grid{grid-template-columns:1fr 1fr}.hero{padding:21px 17px;min-height:150px}.medal-big{width:64px;height:64px;border-width:4px;box-shadow:0 0 0 3px #624118;font-size:18px}.stats{gap:8px}.stat{padding:12px 10px;min-height:80px}.stat strong{font-size:16px}.stat small{font-size:9px}}
+@media(max-width:440px){.hero h1{font-size:21px}.hero p{font-size:11px}.stats{grid-template-columns:repeat(3,1fr)}.quick{grid-template-columns:repeat(2,1fr)}.course-grid{grid-template-columns:1fr}.page-head h1{font-size:23px}}
+</style></head>
+<body>
+<aside class="sidebar" id="sidebar">
+ <div class="brand"><div class="brand-icon">◆</div><div><strong>FILA ÚNICA</strong><small>CURSOS E COMUNIDADES</small></div></div>
+ <nav class="navigation" aria-label="Menu principal">
+  <button type="button" class="active" data-page="inicio"><span class="ico">⌂</span>Painel</button>
+  <button type="button" data-page="comunidades"><span class="ico">◉</span>Comunidades</button>
+  <button type="button" data-page="cursos"><span class="ico">▣</span>Galeria de cursos</button>
+  <button type="button" data-page="indicacoes"><span class="ico">♧</span>Minhas indicações</button>
+  <button type="button" data-page="financeiro"><span class="ico">▤</span>Financeiro</button>
+  <button type="button" data-page="posicoes"><span class="ico">◷</span>Minhas posições</button>
+  <button type="button" data-page="perfil"><span class="ico">♙</span>Meu perfil</button>
+ </nav><div class="sidebar-foot">Prévia visual — sem conexão com contas ou pagamentos.</div>
+</aside>
+<div class="overlay" id="overlay"></div>
+<div class="main">
+ <div class="top-mobile"><button type="button" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">☰</button> ◆ FILA ÚNICA</div>
+ <div class="demo-strip">🛠 PRÉVIA VISUAL — sem dados reais, login ou transações</div>
+ <main class="content">
+  <section class="page" id="page-inicio">
+   <div class="hero"><div><div class="eyebrow">Bem-vindo ao portal</div><h1>Todos juntos aprendendo e crescendo!</h1><p>Acompanhe suas comunidades, descubra cursos e navegue pela área de membros.</p></div><div class="medal-big">FU</div></div>
+   <div class="stats"><div class="stat"><small>Saldo disponível</small><strong>R$ 0,00</strong></div><div class="stat"><small>Bônus</small><strong>R$ 0,00</strong></div><div class="stat"><small>Posições ativas</small><strong>0</strong></div></div>
+   <h2>Vamos começar?</h2><p class="muted">O que você deseja fazer agora?</p>
+   <div class="quick"><button type="button" data-page="perfil">COMPLETAR CADASTRO</button><button type="button" data-page="financeiro">ÁREA FINANCEIRA</button><button type="button" data-page="indicacoes">VER INDICAÇÕES</button><button type="button" data-page="posicoes">CONSULTAR POSIÇÕES</button></div>
+   <h2>Comunidades</h2><p class="muted">Conheça os oito níveis previstos para o projeto. Nenhuma posição está ativada nesta demonstração.</p>
+   <div class="community-list" id="homeLevels"></div>
+   <h2>Galeria de cursos</h2><p class="muted">Categorias planejadas; conteúdos ainda não publicados.</p>
+   <div class="course-grid" id="homeCourses"></div>
+  </section>
+  <section class="page" id="page-comunidades" hidden><button class="back" data-page="inicio">← Voltar ao painel</button><div class="page-head"><h1>Comunidades</h1><p class="muted">Selecione um nível para visualizar os detalhes.</p></div><div class="levels" id="levelsNav"></div><div class="panel"><span class="tag">DEMONSTRAÇÃO</span><div class="details"><div class="medal" id="levelSymbol">BR</div><div><h2 id="levelTitle" style="margin:0">Bronze</h2><p id="levelDescription">Não há posições confirmadas.</p></div></div><div class="empty"><div class="symbol">○ ○ ○ ○</div>Nenhuma pessoa exibida nesta prévia.<br>Participações reais dependerão de registros confirmados.</div></div></section>
+  <section class="page" id="page-cursos" hidden><button class="back" data-page="inicio">← Voltar ao painel</button><div class="page-head"><h1>Galeria de cursos</h1><p class="muted">Espaço para os futuros cursos e ferramentas de IA.</p></div><div class="course-grid" id="coursesPage"></div><div class="panel"><span class="tag">EM PREPARAÇÃO</span><p>As categorias são ilustrativas. Aulas, certificados e acesso de alunos ainda precisam ser implementados.</p></div></section>
+  <section class="page" id="page-indicacoes" hidden><button class="back" data-page="inicio">← Voltar ao painel</button><div class="page-head"><h1>Minhas indicações</h1><p class="muted">Aqui aparecerão os participantes cadastrados pelo seu link.</p></div><div class="panel"><span class="tag">PRÉVIA</span><div class="empty"><div class="symbol">♧</div>Não há indicações carregadas.<br>A lista real está disponível apenas no sistema autenticado.</div></div></section>
+  <section class="page" id="page-financeiro" hidden><button class="back" data-page="inicio">← Voltar ao painel</button><div class="page-head"><h1>Área financeira</h1><p class="muted">Saldo, extrato e solicitações de saque.</p></div><div class="stats"><div class="stat"><small>Saldo disponível</small><strong>R$ 0,00</strong></div><div class="stat"><small>Bônus</small><strong>R$ 0,00</strong></div><div class="stat"><small>Saques</small><strong>R$ 0,00</strong></div></div><div class="notice">Pagamentos Pix, saldo financeiro e saques ainda não estão habilitados no projeto. Estes valores são apenas placeholders zerados.</div><div class="panel"><h3>Extrato</h3><div class="empty">Nenhum lançamento para mostrar nesta demonstração.</div></div></section>
+  <section class="page" id="page-posicoes" hidden><button class="back" data-page="inicio">← Voltar ao painel</button><div class="page-head"><h1>Minhas posições</h1><p class="muted">Acompanhamento dos níveis e posições.</p></div><div class="panel"><span class="tag">SEM DADOS DE PRODUÇÃO</span><div class="empty"><div class="symbol">◷</div>Nenhuma posição ativa confirmada nesta prévia.</div></div></section>
+  <section class="page" id="page-perfil" hidden><button class="back" data-page="inicio">← Voltar ao painel</button><div class="page-head"><h1>Meu perfil</h1><p class="muted">Área reservada para os dados da conta.</p></div><div class="panel"><span class="tag">VISUALIZAÇÃO</span><p>O cadastro verdadeiro continua no sistema atual. Não digite dados pessoais nesta página de teste.</p><div class="empty">Nome, e-mail e dados Pix não são carregados na demonstração.</div></div></section>
+ </main>
+</div>
+<script>
+(()=>{'use strict';
+ const names=['Bronze','Prata','Ouro','Platina','Safira','Esmeralda','Rubi','Diamante'];
+ const marks=['BR','PR','OU','PL','SA','ES','RU','DI'];
+ const courses=[['IA E AUTOMAÇÃO','Inteligência artificial'],['MARKETING DIGITAL','Marketing e divulgação'],['CURSOS PROFISSIONAIS','Desenvolvimento profissional']];
+ const home=document.getElementById('homeLevels');
+ names.forEach((name,i)=>{const b=document.createElement('button');b.className='community';b.type='button';b.innerHTML='<span class="medal" aria-hidden="true">'+marks[i]+'</span><div><h3>'+name+'</h3><small>Comunidade em preparação · Sem posições confirmadas</small><span class="bubbles" aria-hidden="true">'+('<i></i>'.repeat(5))+'</span></div>';b.addEventListener('click',()=>{show('comunidades');choose(i)});home.append(b)});
+ const tileMarkup=c=>'<article class="course"><div class="course-art">'+c[0]+'</div><div class="course-body"><h3>'+c[1]+'</h3><p>Conteúdo em preparação</p></div></article>';
+ document.getElementById('homeCourses').innerHTML=courses.map(tileMarkup).join('');
+ document.getElementById('coursesPage').innerHTML=courses.map(tileMarkup).join('');
+ const levelNav=document.getElementById('levelsNav');
+ names.forEach((name,i)=>{const b=document.createElement('button');b.type='button';b.className='level';b.textContent=name;b.addEventListener('click',()=>choose(i));levelNav.append(b)});
+ function choose(i){document.getElementById('levelSymbol').textContent=marks[i];document.getElementById('levelTitle').textContent=names[i];document.getElementById('levelDescription').textContent='Nível '+names[i]+' — posições e ciclos não disponíveis nesta prévia.';[...levelNav.children].forEach((b,j)=>b.classList.toggle('active',j===i))}
+ const sidebar=document.getElementById('sidebar'),overlay=document.getElementById('overlay'),menuBtn=document.getElementById('menuBtn');
+ function close(){sidebar.classList.remove('open');overlay.classList.remove('show');menuBtn.setAttribute('aria-expanded','false')}
+ function show(page){if(!document.getElementById('page-'+page))return;document.querySelectorAll('.page').forEach(s=>s.hidden=s.id!=='page-'+page);document.querySelectorAll('.navigation [data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));close();window.scrollTo(0,0)}
+ document.querySelectorAll('button[data-page]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.page)));
+ menuBtn.addEventListener('click',()=>{const open=!sidebar.classList.contains('open');sidebar.classList.toggle('open',open);overlay.classList.toggle('show',open);menuBtn.setAttribute('aria-expanded',String(open))});
+ overlay.addEventListener('click',close);document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});choose(0);
+})();
+</script></body></html>

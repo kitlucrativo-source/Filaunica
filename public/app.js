@@ -3,7 +3,7 @@
   const $ = id => document.getElementById(id);
   const page = location.pathname.split('/').pop() || 'index.html';
   const params = new URLSearchParams(location.search);
-  const privatePages = ['dashboard.html','perfil.html','historico.html','saque.html','pagamento.html','obrigado.html','afiliados.html','admin.html'];
+  const privatePages = ['dashboard.html','perfil.html','historico.html','saque.html','pagamento.html','cursos.html','obrigado.html','afiliados.html','admin.html'];
   const money = cents => cents == null ? 'A definir' : (cents / 100).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
   let ready = false;
   const loadingControls = [...document.querySelectorAll('form input, form select, form button')];
@@ -68,7 +68,7 @@
   }
   function navigation(user) {
     const nav=document.createElement('nav');nav.className='app-nav';nav.setAttribute('aria-label','Área da conta');
-    const items=[['dashboard.html','Painel'],['perfil.html','Perfil'],['afiliados.html','Indicações'],['historico.html','Histórico e tabela'],['pagamento.html','Pagamento'],['saque.html','Saque']];
+    const items=[['dashboard.html','Painel'],['perfil.html','Perfil'],['afiliados.html','Indicações'],['historico.html','Histórico e tabela'],['cursos.html','Cursos'],['pagamento.html','Pagamento'],['saque.html','Saque']];
     if(user.role==='admin')items.push(['admin.html','Admin']);
     for(const [href,label]of items){const a=document.createElement('a');a.href=href;a.textContent=label;if(page===href)a.setAttribute('aria-current','page');nav.append(a);}
     const out=document.createElement('button');out.type='button';out.textContent='Sair';out.id='app-logout';nav.append(out);
